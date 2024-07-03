@@ -1,0 +1,7 @@
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.csproj.AssemblyReference.cache
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.AssemblyInfoInputs.cache
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.AssemblyInfo.cs
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.csproj.CoreCompileInputs.cache
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.MvcApplicationPartsAssemblyInfo.cs
+D:\Licenta\LicenseProject\AppAPI\AppAPI\obj\Debug\net5.0\AppAPI.MvcApplicationPartsAssemblyInfo.cache
