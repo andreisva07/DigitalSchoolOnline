@@ -1,0 +1,1436 @@
+/* AdminHub Styles */
+.admin-hub .outer {
+  height: 100vh;
+  background: linear-gradient(to top, #c9c9ff 50%, #9966ff 90%) no-repeat;
+}
+
+.admin-hub .panel-heading {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.admin-hub #forget {
+  min-width: 100px;
+  margin-left: auto;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-hub a:hover {
+  text-decoration: none;
+}
+
+.admin-hub .form-inline label {
+  padding-left: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.admin-hub .btn {
+  margin-top: 20px;
+  border-radius: 15px;
+}
+
+.admin-hub .panel {
+  min-height: 380px;
+  box-shadow: 20px 20px 80px rgb(218, 218, 218);
+  margin-top: 100px;
+  border-radius: 12px;
+}
+
+.admin-hub .input-field {
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  color: #4343ff;
+}
+
+.admin-hub .input-field.error {
+  border: 1px solid red;
+  color: red;
+}
+
+.admin-hub input[type="text"],
+.admin-hub input[type="password"] {
+  border: 1px solid #dee2e6;
+  outline: none;
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #010105;
+}
+
+.admin-hub .fa-eye-slash.btn {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.admin-hub img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+}
+
+.admin-hub .bordert {
+  border-top: 1px solid #aaa;
+  position: relative;
+}
+
+.admin-hub .bordert:after {
+  content: "or connect with";
+  position: absolute;
+  top: -13px;
+  left: 33%;
+  background-color: #fff;
+  padding: 0 8px;
+}
+
+.admin-hub .center-text {
+  text-align: center;
+}
+
+.admin-hub .navbar-global {
+  background-color: indigo;
+}
+
+.admin-hub .navbar-global .navbar-brand {
+  color: green;
+}
+
+.admin-hub .navbar-global .navbar-user>li>a {
+  color: white;
+}
+
+.admin-hub .navbar-primary {
+  background-color: #333;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  top: 51px;
+  width: 200px;
+  z-index: 8;
+  overflow: hidden;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.admin-hub .navbar-primary.collapsed {
+  width: 60px;
+}
+
+.admin-hub .navbar-primary.collapsed .glyphicon {
+  font-size: 22px;
+}
+
+.admin-hub .navbar-primary.collapsed .nav-label {
+  display: none;
+}
+
+.admin-hub .btn-expand-collapse {
+  position: absolute;
+  display: block;
+  left: 0px;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 0;
+  border-top: solid 1px #666;
+  color: grey;
+  font-size: 20px;
+  text-align: center;
+}
+
+.admin-hub .btn-expand-collapse:hover,
+.admin-hub .btn-expand-collapse:focus {
+  background-color: #222;
+  color: white;
+}
+
+.admin-hub .btn-expand-collapse:active {
+  background-color: #111;
+}
+
+.admin-hub .navbar-primary-menu,
+.admin-hub .navbar-primary-menu li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-hub .navbar-primary-menu li a {
+  display: block;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom: solid 1px #444;
+  color: #ccc;
+}
+
+.admin-hub .navbar-primary-menu li a:hover {
+  background-color: #000;
+  text-decoration: none;
+  color: white;
+}
+
+.admin-hub .navbar-primary-menu li a .glyphicon {
+  margin-right: 6px;
+}
+
+.admin-hub .navbar-primary-menu li a:hover .glyphicon {
+  color: orchid;
+}
+
+.admin-hub .main-content {
+  margin-top: 60px;
+  margin-left: 200px;
+  padding: 20px;
+}
+
+.admin-hub .collapsed+.main-content {
+  margin-left: 60px;
+}
+
+.admin-hub .table-data {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.admin-hub #content {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-hub .head-title,
+.admin-hub .table-data {
+  flex: 0 0 auto;
+}
+
+.admin-hub .table-data {
+  overflow: auto;
+}
+
+.admin-hub .icon-hover {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  color: initial;
+}
+
+.admin-hub .icon-hover:hover {
+  color: #4CAF50;
+}
+
+.admin-hub .icon-hover i,
+.admin-hub .icon-hover p {
+  transition: color 0.3s ease;
+}
+
+.admin-hub .icon-hover:hover i,
+.admin-hub .icon-hover:hover p {
+  color: #4CAF50;
+}
+
+.admin-hub .modal .form-control {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border-bottom: 10px;
+}
+
+.admin-hub .modal .form-control:focus {
+  border-color: #000000;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.admin-hub .bxs-trash:hover {
+  color: darkred;
+}
+
+.admin-hub .table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+
+.admin-hub .table th,
+.admin-hub .table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.admin-hub .table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.admin-hub .table tbody+tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.admin-hub .table .table {
+  background-color: #fff;
+}
+
+.admin-hub .table-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.admin-hub .order table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-hub .order th {
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+}
+
+.admin-hub .order th,
+.admin-hub .order td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-hub .table-container {
+  max-height: 300px;
+}
+
+.admin-hub .order table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-hub .order th {
+  background-color: #f2f2f2;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.admin-hub .order th,
+.admin-hub .order td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-hub .button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.admin-hub .btn {
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.admin-hub .semester-item {
+  margin-bottom: 10px;
+}
+
+.admin-hub .semester-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-hub .semester-item .status {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.admin-hub .semester-item .badge {
+  margin-right: 10px;
+}
+
+.admin-hub .semester-item .status .btn {
+  margin-left: 10px;
+}
+
+
+
+.admin-hub .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.admin-hub .btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.admin-hub .add-button {
+  margin-right: 10px;
+}
+
+.admin-hub .delete-button {
+  margin-left: 10px;
+}
+
+.admin-hub .sidebar {
+  flex: 1;
+}
+
+/* Custom Styles for Admin Controls */
+.admin-hub .admin-controls {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.admin-hub .admin-controls h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.admin-hub .admin-controls .form-group {
+  margin-bottom: 20px;
+}
+
+.admin-hub .admin-controls label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.admin-hub .admin-controls select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-hub .admin-controls select:focus {
+  border-color: #004080;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Table Data Styles */
+.admin-hub .table-data {
+  margin-top: 20px;
+}
+
+.admin-hub .order {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.admin-hub .order h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.admin-hub .table-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.admin-hub .order table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-hub .order th,
+.admin-hub .order td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-hub .order th {
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.admin-hub .order tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.admin-hub .order tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+/* Navbar */
+.admin-hub .navbar {
+  background-color: #003366;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.admin-hub .navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.admin-hub .navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.admin-hub .navbar-menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+}
+
+.admin-hub .navbar-menu .dropdown {
+  position: relative;
+}
+
+.admin-hub .navbar-menu .dropdown .dropbtn {
+  background-color: #004080;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.admin-hub .navbar-menu .dropdown:hover .dropbtn {
+  background-color: #004080;
+}
+
+.admin-hub .navbar-menu .dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #004080;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.admin-hub .navbar-menu .dropdown .dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.admin-hub .navbar-menu .dropdown .dropdown-content a:hover {
+  background-color: #3c7cbd;
+}
+
+.admin-hub .navbar-menu .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Content */
+.admin-hub .content-wrapper {
+  margin-left: 0px;
+  margin-top: 60px;
+  padding: 0px;
+}
+
+.admin-hub .head-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-hub .breadcrumb {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-hub .breadcrumb li {
+  margin-right: 5px;
+}
+
+.admin-hub .breadcrumb li i {
+  margin-right: 5px;
+}
+
+.admin-hub .table-container {
+  max-height: 300px;
+}
+
+/* Dropdown Styles */
+.admin-hub .dropdown-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-hub .dropdown {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #004080;
+  color: #333;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+
+}
+
+.admin-hub .dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-hub .dropdown:focus {
+  border-color: #004080;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.admin-hub .navbar-menu .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.admin-hub .navbar-menu .dropdown .dropbtn {
+  background-color: #004080;
+  /* Updated background color */
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 5px;
+  /* Rounded corners */
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-hub .navbar-menu .dropdown .dropbtn:hover {
+  background-color: #003366;
+  /* Darker shade for hover state */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* Shadow effect for hover */
+}
+
+/* Specific Dropdown Styles for Sidebar */
+.admin-hub #sidebar .dropdown {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-align: left;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.admin-hub #sidebar .dropdown-content {
+  background-color: #444;
+  color: #fff;
+  border: none;
+}
+
+.admin-hub #sidebar .dropdown-content a {
+  color: #fff;
+}
+
+.admin-hub #sidebar .dropdown-content a:hover {
+  background-color: #555;
+}
+
+.admin-hub .view-class-students-dropdown-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-hub .view-class-students-dropdown {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+}
+
+.admin-hub .view-class-students-dropdown:focus {
+  border-color: #004080;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Custom Styles for View Subjects by Teacher Dropdown */
+.admin-hub .view-teacher-subjects-dropdown-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-hub .view-teacher-subjects-dropdown {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+}
+
+.admin-hub .view-teacher-subjects-dropdown:focus {
+  border-color: #004080;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* TeacherHub Styles */
+body.teacher-hub {
+  font-family: Arial, sans-serif;
+  background-color: #d1e7f3;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.teacher-hub .navbar {
+  width: 100%;
+  background-color: #004080;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.teacher-hub .navbar h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.teacher-hub .navbar-button,
+.teacher-hub .logout-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.teacher-hub .navbar-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.teacher-hub .navbar-button:hover,
+.teacher-hub .logout-button:hover {
+  background-color: #0056b3;
+}
+
+.teacher-hub .container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 60px;
+  /* Adjust margin-top to account for the fixed navbar */
+  flex: 1;
+}
+
+.teacher-hub .sidebar {
+  width: 250px;
+  background-color: #004080;
+  color: #fff;
+  height: calc(100vh - 60px);
+  padding: 10px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 48px;
+  z-index: 900;
+  left: 0;
+  overflow-y: auto;
+}
+
+.teacher-hub .sidebar h3 {
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #fff;
+}
+
+.teacher-hub .sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.teacher-hub .sidebar ul li {
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: #fff;
+}
+
+.teacher-hub .sidebar ul li:hover {
+  background-color: #003366;
+}
+
+.teacher-hub .main-content {
+  flex: 1;
+  margin-left: 250px;
+  /* Adjust margin to account for the fixed sidebar */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #d1e7f3;
+  min-height: calc(100vh - 60px);
+  /* Ensure it covers the full height, accounting for navbar height */
+}
+
+.teacher-hub .main-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.teacher-hub .list-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.teacher-hub .list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.teacher-hub .students-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.teacher-hub .students-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.teacher-hub .students-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.teacher-hub .form-container form div {
+  margin-bottom: 10px;
+}
+
+.teacher-hub .form-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.teacher-hub .form-container input[type="text"],
+.teacher-hub .form-container input[type="number"],
+.teacher-hub .form-container input[type="date"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.teacher-hub .form-container input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+.teacher-hub .form-container button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.teacher-hub .form-container button:hover {
+  background-color: #0056b3;
+}
+
+.teacher-hub .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.teacher-hub .modal.active {
+  display: block;
+}
+
+.teacher-hub .modal.show.d-block {
+  display: block;
+}
+
+.teacher-hub .modal-dialog {
+  margin: 5% auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  background-color: #fff;
+}
+
+.teacher-hub .form-control {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.teacher-hub .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.teacher-hub .attendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.teacher-hub .modal-content {
+  margin: 0;
+  padding: 20px;
+  border: none;
+}
+
+.teacher-hub .modal-header,
+.teacher-hub .modal-body {
+  padding: 20px;
+}
+
+.teacher-hub .modal-header {
+  border-bottom: 1px solid #ddd;
+}
+
+.teacher-hub .modal-body {
+  padding-top: 10px;
+}
+
+.teacher-hub .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.teacher-hub .close:hover,
+.teacher-hub .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.teacher-hub .small-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.teacher-hub .small-button:hover {
+  background-color: #0056b3;
+}
+
+.teacher-hub .attendance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.teacher-hub .attendance-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.teacher-hub .attendance-item span {
+  flex: 1;
+}
+
+.teacher-hub .attendance-item .form-check-input {
+  margin-left: 10px;
+}
+
+.teacher-hub .grades-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.teacher-hub .grades-list ul li {
+  padding: 5px;
+  border: 1px solid #ddd;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+.teacher-hub .students-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.teacher-hub .students-list li:hover,
+.teacher-hub .grades-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.teacher-hub .grades-container {
+  flex: 2;
+  overflow-y: auto;
+}
+
+.teacher-hub .student-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.teacher-hub .student-item:hover {
+  background-color: #f9f9f9;
+}
+
+.teacher-hub .grades-list {
+  list-style: none;
+  padding: 0;
+}
+
+.teacher-hub .grades-list li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.teacher-hub .student-info {
+  flex: 1;
+}
+
+.teacher-hub .button-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-hub .icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.teacher-hub .icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.teacher-hub .icon-button:hover {
+  transform: scale(1.2);
+}
+
+.teacher-hub .plus-icon {
+  color: #4CAF50;
+}
+
+.teacher-hub .show-icon {
+  color: #007bff;
+}
+
+.teacher-hub .icon-container:hover .icon-button {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.teacher-hub .logout-button {
+  background-color: #e74c3c;
+  /* Red color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: auto;
+  /* Plasează butonul la finalul sidebar-ului */
+  align-self: center;
+  /* Center the button horizontally */
+}
+
+.teacher-hub .logout-button:hover {
+  background-color: #c0392b;
+  /* Darker red on hover */
+}
+
+/* StudentHub Styles */
+body.student-hub {
+  font-family: Arial, sans-serif;
+  background-color: #d1e7f3;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.student-hub .navbar {
+  background-color: #004080;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.student-hub .navbar .user-info {
+  display: flex;
+  align-items: center;
+}
+
+.student-hub .navbar .user-info .user-name {
+  margin-right: 10px;
+}
+
+.student-hub .navbar .logout {
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.student-hub .navbar .logout:hover {
+  background-color: #003366;
+}
+
+.student-hub .container {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+  background-color: #d1e7f3;
+}
+
+.student-hub .sidebar {
+  width: 250px;
+  background-color: #004080;
+  color: #fff;
+  height: calc(100vh - 50px);
+  position: fixed;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  left: 0;
+}
+
+.student-hub .sidebar h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.student-hub .sidebar ul {
+  list-style: none;
+  padding: 0;
+  background-color: #004080;
+}
+
+.student-hub .sidebar ul li {
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin: 5px;
+  color: #fff;
+}
+
+.student-hub .sidebar ul li:hover {
+  background-color: #003366;
+}
+
+.student-hub .main-content {
+  margin-left: 250px;
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d1e7f3;
+  min-height: calc(100vh - 50px);
+}
+
+.student-hub .card-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.student-hub .card {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.student-hub .card h4 {
+  margin-bottom: 20px;
+}
+
+.student-hub .card ul {
+  list-style: none;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.student-hub .card ul li {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: background-color 0.3s;
+}
+
+.student-hub .card ul li:hover {
+  background-color: #b3d1e0;
+}
+
+.student-hub .card ul li:last-child {
+  border-bottom: none;
+}
+
+.student-hub .grades-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.student-hub .grades-list ul li {
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: background-color 0.3s;
+}
+
+.student-hub .grades-list ul li:hover {
+  background-color: #b3d1e0;
+}
+
+.student-hub .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-hub .attendance-button {
+  background-color: #004080;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.student-hub .attendance-button:hover {
+  background-color: #003366;
+}
+
+.student-hub .attendance-modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.student-hub .attendance-modal.show {
+  display: block;
+}
+
+.student-hub .modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.student-hub .modal-content .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.student-hub .modal-content .close:hover,
+.student-hub .modal-content .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.student-hub .attendance-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.teacher-hub .sidebar li:hover {
+  background-color: #0056b3;
+}
+
+.student-hub .attendance-list ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.student-hub .attendance-list ul li:last-child {
+  border-bottom: none;
+}
+
+/* Dropdown Styles */
+.dropdown-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dropdown {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s;
+}
+
+.dropdown:focus {
+  border-color: #004080;
+  outline: none;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}

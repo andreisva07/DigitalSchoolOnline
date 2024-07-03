@@ -1,0 +1,1047 @@
+<div class="admin-hub">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>AdminHub</title>
+  </head>
+</div>
+
+<div class="admin-hub">
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <a href="/dashboard" class="brand">
+          <i class='bx bxs-smile'></i>
+          <span class="text">AdminHub</span>
+        </a>
+      </div>
+      <div class="navbar-right">
+        <ul class="navbar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Semester</a>
+            <div class="dropdown-content">
+              <a href="javascript:void(0)" (click)="openSemesterModal()">View Semesters</a>
+              <a href="javascript:void(0)" (click)="openAddSemesterModal()">Add New Semester</a>
+              <a href="javascript:void(0)" (click)="openDeleteSemesterModal()">Delete Semester</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">New</a>
+            <div class="dropdown-content">
+              <a href="javascript:void(0)" (click)="openAddTeacherModal()">Add Teacher</a>
+              <a href="javascript:void(0)" (click)="openAddStudentModal()">Add Student</a>
+              <a href="javascript:void(0)" (click)="openAddDisciplineModal()">Add Discipline</a>
+              <a href="javascript:void(0)" (click)="openAddClassModal()">Add Class</a>
+              <a href="javascript:void(0)" (click)="openAddTeacherSubjectModal()">Add Teacher-Discipline
+                Relationship</a>
+              <a href="javascript:void(0)" (click)="openAddTeacherClassModal()">Add Teacher-Class Link</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Delete</a>
+            <div class="dropdown-content">
+              <a href="javascript:void(0)" (click)="openDeleteTeacherModal()">Delete Teacher</a>
+              <a href="javascript:void(0)" (click)="openDeleteStudentModal()">Delete Student</a>
+              <a href="javascript:void(0)" (click)="openDeleteDisciplineModal()">Delete Discipline</a>
+              <a href="javascript:void(0)" (click)="openDeleteClassModal()">Delete Class</a>
+              <a href="javascript:void(0)" (click)="openDeleteTeacherSubjectModal()">Delete Teacher-Discipline
+                Relationship</a>
+              <a href="javascript:void(0)" (click)="openDeleteTeacherClassModal()">Delete Teacher-Class Link</a>
+            </div>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Transfer</a>
+            <div class="dropdown-content">
+              <a href="javascript:void(0)" (click)="openClassSelectionModal()">Transfer Student</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">View</a>
+            <div class="dropdown-content">
+              <a href="javascript:void(0)" (click)="openViewClassStudentsModal()">View Students by Class</a>
+              <a href="javascript:void(0)" (click)="openViewTeacherSubjectsModal()">View Subjects by Teacher</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content-wrapper">
+      <!-- SIDEBAR -->
+      <section id="sidebar">
+        <a href="/dashboard" class="brand">
+          <i class='bx bxs-smile'></i>
+          <span class="text">AdminHub</span>
+        </a>
+        <ul class="side-menu top">
+          <li (click)="selectOption('admin')">
+            <a href="javascript:void(0)">
+              <i class='bx bxs-user-detail'></i>
+              <span class="text">Admin</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="side-menu top">
+          <li (click)="selectOption('classes')">
+            <a href="javascript:void(0)">
+              <i class='bx bxs-shopping-bag-alt'></i>
+              <span class="text">Classes</span>
+            </a>
+          </li>
+          <li (click)="selectOption('disciplines')">
+            <a href="javascript:void(0)">
+              <i class='bx bxs-doughnut-chart'></i>
+              <span class="text">Disciplines</span>
+            </a>
+          </li>
+          <li (click)="selectOption('students')">
+            <a href="javascript:void(0)">
+              <i class='bx bxs-graduation'></i>
+              <span class="text">Students</span>
+            </a>
+          </li>
+          <li (click)="selectOption('teachers')">
+            <a href="javascript:void(0)">
+              <i class='bx bxs-group'></i>
+              <span class="text">Teachers</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="side-menu">
+          <li>
+            <a href="#" class="logout" (click)="logout()">
+              <i class='bx bxs-log-out-circle'></i>
+              <span class="text">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- CONTENT -->
+      <section id="content">
+        <main>
+          <ng-container *ngIf="selectedOption === 'admin'">
+            <div class="admin-controls">
+              <h3>Admin Controls</h3>
+              <div class="form-group">
+                <label for="roleSelect">Select Role:</label>
+                <select id="roleSelect" [(ngModel)]="selectedRole" (change)="fetchDataForRole()">
+                  <option [ngValue]="null">Select Role</option>
+                  <option value="student">Student</option>
+                  <option value="teacher">Teacher</option>
+                </select>
+              </div>
+              <div *ngIf="selectedRole === 'student'" class="form-group">
+                <label for="classSelect">Select Class:</label>
+                <select id="classSelect" [(ngModel)]="selectedClassForStudents"
+                  (change)="fetchStudentsByClass(selectedClassForStudents)">
+                  <option [ngValue]="null">Select a class</option>
+                  <option *ngFor="let class of availableClasses" [ngValue]="class.classId">{{ class.series }} - {{
+                    class.number }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="selectedRole === 'student' && studentsInSelectedClass.length > 0" class="table-data">
+              <div class="order">
+                <h3>Students List</h3>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let student of studentsInSelectedClass">
+                        <td>{{ student.firstName }}</td>
+                        <td>{{ student.lastName }}</td>
+                        <td>{{ student.username }}</td>
+                        <td>{{ student.password }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="selectedRole === 'teacher'" class="table-data">
+              <div class="order">
+                <h3>Teachers List</h3>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let teacher of teachers">
+                        <td>{{ teacher.id }}</td>
+                        <td>{{ teacher.firstName }}</td>
+                        <td>{{ teacher.lastName }}</td>
+                        <td>{{ teacher.username }}</td>
+                        <td>{{ teacher.password }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedOption === 'classes'">
+            <!-- Classes List -->
+            <ul class="box-info">
+              <li class="icon-hover" (click)="openAddClassModal()">
+                <i class="bx bxs-user-plus"></i>
+                <span class="text">
+                  <p>Add Classes</p>
+                </span>
+              </li>
+              <li class="icon-hover" (click)="openDeleteClassModal()">
+                <i class="bx bxs-trash"></i>
+                <span class="text">
+                  <p>Delete Classes</p>
+                </span>
+              </li>
+            </ul>
+
+            <!-- Classes List -->
+            <div class="table-data">
+              <div class="order">
+                <h3>Classes List</h3>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Series</th>
+                        <th>Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let class of availableClasses | orderBy:'series':'asc' | orderBy:'number':'asc'">
+                        <td>{{ class.classId }}</td>
+                        <td>{{ class.series }}</td>
+                        <td>{{ class.number }}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedOption === 'disciplines'">
+            <!-- Disciplines List -->
+            <ul class="box-info">
+              <li class="icon-hover" (click)="openAddDisciplineModal()">
+                <i class="bx bxs-user-plus"></i>
+                <span class="text">
+                  <p>Add Disciplines</p>
+                </span>
+              </li>
+              <li class="icon-hover" (click)="openDeleteDisciplineModal()">
+                <i class="bx bxs-trash"></i>
+                <span class="text">
+                  <p>Delete Disciplines</p>
+                </span>
+              </li>
+            </ul>
+
+            <!-- Disciplines List -->
+            <div class="table-data">
+              <div class="order">
+                <h3>Disciplines List</h3>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let discipline of subjects">
+                        <td>{{ discipline.id }}</td>
+                        <td>{{ discipline.title }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedOption === 'teachers'">
+            <!-- Teachers List -->
+            <ul class="box-info">
+              <li class="icon-hover" (click)="openAddTeacherModal()">
+                <i class="bx bxs-user-plus"></i>
+                <span class="text">
+                  <p>Add Teachers</p>
+                </span>
+              </li>
+              <li class="icon-hover" (click)="openDeleteTeacherModal()">
+                <i class="bx bxs-trash"></i>
+                <span class="text">
+                  <p>Delete Teachers</p>
+                </span>
+              </li>
+            </ul>
+
+            <!-- Display Teachers List -->
+            <div class="table-data">
+              <div class="order">
+                <h3>Teachers List</h3>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>CNP</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let teacher of teachers">
+                        <td>{{ teacher.id }}</td>
+                        <td>{{ teacher.firstName }}</td>
+                        <td>{{ teacher.lastName }}</td>
+                        <td>{{ teacher.cnp }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedOption === 'students'">
+            <!-- Add Student Box -->
+            <ul class="box-info">
+              <li class="icon-hover" (click)="openAddStudentModal()">
+                <i class="bx bxs-user-plus"></i>
+                <span class="text">
+                  <p>Add Students</p>
+                </span>
+              </li>
+              <li class="icon-hover" (click)="openDeleteStudentModal()">
+                <i class="bx bxs-trash"></i>
+                <span class="text">
+                  <p>Delete Students</p>
+                </span>
+              </li>
+            </ul>
+            <!-- Display Students List -->
+            <div *ngIf="selectedOption === 'students'">
+              <div class="table-data">
+                <div class="order">
+                  <h3>Students List</h3>
+                  <div class="table-container">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Gender</th>
+                          <th>CNP</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let student of students">
+                          <td>{{ student.id }}</td>
+                          <td>{{ student.firstName }}</td>
+                          <td>{{ student.lastName }}</td>
+                          <td>{{ student.gender | genderText }}</td>
+                          <td>{{ student.cnp }}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </main>
+      </section>
+    </div>
+  </body>
+</div>
+
+
+<!-- Add Teacher Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddTeacherFormFlag"
+  [ngClass]="{'d-block': showAddTeacherFormFlag}" aria-labelledby="addTeacherModalLabel"
+  aria-hidden="!showAddTeacherFormFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTeacherModalLabel">Add New Teacher</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddTeacherModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addTeacher()" #teacherForm="ngForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name:</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="newTeacher.firstName" class="form-control"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="newTeacher.lastName" class="form-control"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="Cnp" class="form-label">CNP:</label>
+            <input type="text" id="Cnp" name="Cnp" [(ngModel)]="newTeacher.Cnp" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Teacher</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Teacher Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteTeacherModalFlag"
+  [ngClass]="{'d-block': showDeleteTeacherModalFlag}" aria-labelledby="deleteTeacherModalLabel"
+  aria-hidden="!showDeleteTeacherModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteTeacherModalLabel">Delete Teacher</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteTeacherModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this teacher?</p>
+        <div>
+          <select class="form-select" [(ngModel)]="teacherId">
+            <option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteTeacher()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteTeacherModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Student Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddStudentFormFlag"
+  [ngClass]="{'d-block': showAddStudentFormFlag}" aria-labelledby="addStudentModalLabel"
+  aria-hidden="!showAddStudentFormFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addStudentModalLabel">Add New Student</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddStudentModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addStudent()" #studentForm="ngForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name:</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="newStudent.firstName" class="form-control"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="newStudent.lastName" class="form-control"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="gender" class="form-label">Gender:</label>
+            <select id="gender" name="gender" [(ngModel)]="newStudent.gender" class="form-control" required>
+              <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="Cnp" class="form-label">CNP:</label>
+            <input type="text" id="Cnp" name="Cnp" [(ngModel)]="newStudent.Cnp" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="classId" class="form-label">Class:</label>
+            <select id="classId" name="classId" [(ngModel)]="selectedOption" class="form-control" required
+              (change)="getClassId($event)">
+              <option disabled selected>Select class</option>
+              <option *ngFor="let class of availableClasses" [value]="class.series + ' - ' + class.number">
+                {{ class.series }} - {{ class.number }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Student Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteStudentModalFlag"
+  [ngClass]="{'d-block': showDeleteStudentModalFlag}" aria-labelledby="deleteStudentModalLabel"
+  aria-hidden="!showDeleteStudentModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteStudentModalLabel">Delete Student</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteStudentModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this student?</p>
+        <div>
+          <select class="form-select" [(ngModel)]="studentId">
+            <option *ngFor="let student of students" [value]="student.id">{{ student.firstName }} {{ student.lastName }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteStudent()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteStudentModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Discipline Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddSubjectFormFlag"
+  [ngClass]="{'d-block': showAddSubjectFormFlag}" aria-labelledby="showAddSubjectFormFlag"
+  aria-hidden="!showAddSubjectFormFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showAddSubjectFormFlag">Add New Discipline</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddDisciplineModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="subjectName">Discipline Name</label>
+            <input type="text" class="form-control" id="subjectName" [(ngModel)]="newSubject.name" name="subjectName">
+          </div>
+          <button type="button" class="btn btn-primary" (click)="addSubject()">Add Discipline</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Discipline Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteSubjectModalFlag"
+  [ngClass]="{'d-block': showDeleteSubjectModalFlag}" aria-labelledby="showDeleteSubjectModalFlag"
+  aria-hidden="!showDeleteSubjectModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showDeleteSubjectModalFlag">Delete Discipline</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteDisciplineModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="subjectId">Discipline ID</label>
+            <input type="number" class="form-control" id="subjectId" [(ngModel)]="subjectId" name="subjectId">
+          </div>
+          <button type="button" class="btn btn-danger" (click)="deleteSubject()">Delete Discipline</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Class Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddClassFormFlag"
+  [ngClass]="{'d-block': showAddClassFormFlag}" aria-labelledby="addClassModalLabel"
+  aria-hidden="!showAddClassFormFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addClassModalLabel">Add New Class</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddClassModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addClass()" #classForm="ngForm">
+          <div class="mb-3">
+            <label for="series" class="form-label">Series:</label>
+            <input type="text" id="series" name="series" [(ngModel)]="newClass.series" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="number" class="form-label">Number:</label>
+            <input type="text" id="number" name="number" [(ngModel)]="newClass.number" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Class</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Class Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteClassModalFlag"
+  [ngClass]="{'d-block': showDeleteClassModalFlag}" aria-labelledby="deleteClassModalLabel"
+  aria-hidden="!showDeleteClassModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteClassModalLabel">Delete Class</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteClassModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this class?</p>
+        <div>
+          <select class="form-select" [(ngModel)]="classId">
+            <option *ngFor="let class of availableClasses" [value]="class.classId">{{ class.series }} - {{ class.number
+              }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteClass()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteClassModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Teacher-Discipline Relationship Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddTeacherSubjectModalFlag"
+  [ngClass]="{'d-block': showAddTeacherSubjectModalFlag}" aria-labelledby="addTeacherSubjectModalLabel"
+  aria-hidden="!showAddTeacherSubjectModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTeacherSubjectModalLabel">Add Teacher-Discipline Relationship</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddTeacherSubjectModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="createTeacherSubjectLink()" #teacherSubjectForm="ngForm">
+          <div class="mb-3">
+            <label for="teacherId" class="form-label">Teacher:</label>
+            <select id="teacherId" name="teacherId" [(ngModel)]="newTeacherSubject.teacherId" class="form-control"
+              required (change)="getTeacherId($event)">
+              <option disabled selected>Select a teacher</option>
+              <option *ngFor="let teacher of teachers" [value]="teacher.id">
+                {{ teacher.firstName }} {{ teacher.lastName }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="subjectId" class="form-label">Discipline:</label>
+            <select id="subjectId" name="subjectId" [(ngModel)]="newTeacherSubject.subjectId" class="form-control"
+              required [disabled]="!newTeacherSubject.teacherId">
+              <option disabled selected>Select a discipline</option>
+              <option *ngFor="let subject of availableSubjects" [value]="subject.id">
+                {{ subject.title }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Relationship</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Teacher-Subject Relationship Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteTeacherSubjectModalFlag"
+  [ngClass]="{'d-block': showDeleteTeacherSubjectModalFlag}" aria-labelledby="deleteTeacherSubjectModalLabel"
+  aria-hidden="!showDeleteTeacherSubjectModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteTeacherSubjectModalLabel">Delete Teacher-Discipline Relationship</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteTeacherSubjectModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this teacher-discipline relationship?</p>
+        <div>
+          <select class="form-select" [(ngModel)]="newTeacherSubject.teacherId"
+            (change)="fetchLinkedSubjectsForTeacher($event)">
+            <option disabled selected>Select a teacher</option>
+            <option *ngFor="let teacher of teachers" [value]="teacher.id">
+              {{ teacher.firstName }} {{ teacher.lastName }}
+            </option>
+          </select>
+        </div>
+        <div class="mt-3">
+          <select class="form-select" [(ngModel)]="newTeacherSubject.subjectId"
+            [disabled]="!newTeacherSubject.teacherId">
+            <option disabled selected>Select a discipline</option>
+            <option *ngFor="let subject of availableSubjects" [value]="subject.id">
+              {{ subject.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteTeacherSubjectLink()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteTeacherSubjectModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Teacher-Class Link Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddTeacherClassModalFlag"
+  [ngClass]="{'d-block': showAddTeacherClassModalFlag}" aria-labelledby="addTeacherClassModalLabel"
+  aria-hidden="!showAddTeacherClassModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTeacherClassModalLabel">Add Teacher-Class-Subject Link</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddTeacherClassModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="createTeacherClassLink()" #teacherClassForm="ngForm">
+          <div class="mb-3">
+            <label for="teacherId" class="form-label">Teacher:</label>
+            <select id="teacherId" name="teacherId" [(ngModel)]="newTeacherClass.teacherId" class="form-control"
+              required (change)="getTeacherIdForClass($event)">
+              <option [ngValue]="null" disabled selected>Select a teacher</option>
+              <option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName
+                }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="classId" class="form-label">Class:</label>
+            <select id="classId" name="classId" [(ngModel)]="newTeacherClass.classId" class="form-control" required
+              [disabled]="!newTeacherClass.teacherId" (change)="fetchAvailableSubjectsForTeacherClass($event)">
+              <option [ngValue]="null" disabled selected>Select a class</option>
+              <option *ngFor="let class of availableClasses" [value]="class.classId">{{ class.series }} - {{
+                class.number }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="subjectId" class="form-label">Subject:</label>
+            <select id="subjectId" name="subjectId" [(ngModel)]="newTeacherClass.subjectId" class="form-control"
+              required [disabled]="!newTeacherClass.classId || availableSubjects.length === 0">
+              <option [ngValue]="null" disabled selected>Select a subject</option>
+              <option *ngFor="let subject of availableSubjects" [value]="subject.id">{{ subject.name }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Link</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Delete Teacher-Class Link Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteTeacherClassModalFlag"
+  [ngClass]="{'d-block': showDeleteTeacherClassModalFlag}" aria-labelledby="deleteTeacherClassModalLabel"
+  aria-hidden="!showDeleteTeacherClassModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteTeacherClassModalLabel">Delete Teacher-Class Link</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteTeacherClassModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Select a teacher to view their class-discipline links:</p>
+        <div>
+          <select class="form-select" [(ngModel)]="newTeacherClass.teacherId"
+            (change)="fetchTeacherClassDisciplineLinks($event)">
+            <option disabled selected>Select a teacher</option>
+            <option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="teacherClassDisciplineLinks.length > 0" class="mt-3">
+          <p>Select a class-discipline link to delete:</p>
+          <select class="form-select" [(ngModel)]="selectedClassDisciplineLink">
+            <option disabled selected>Select a class-discipline link</option>
+            <option *ngFor="let link of teacherClassDisciplineLinks" [ngValue]="link">{{ link.class.series }} - {{
+              link.class.number }} | {{ link.subject.title }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteTeacherClassDisciplineLink()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteTeacherClassModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Semester Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showSemesterModalFlag"
+  [ngClass]="{'d-block': showSemesterModalFlag}" aria-labelledby="semesterModalLabel"
+  aria-hidden="!showSemesterModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="semesterModalLabel">Manage Semesters</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeSemesterModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="semester-list">
+          <h3>Semesters</h3>
+          <ul>
+            <li *ngFor="let semester of semesters" class="semester-item">
+              <div>
+                <strong>{{ semester.name }}</strong> - {{ semester.startDate | date:'shortDate' }} to {{
+                semester.endDate | date:'shortDate' }}
+              </div>
+              <div>
+                <span *ngIf="semester.isClosed" class="badge bg-secondary">Closed</span>
+                <span *ngIf="!semester.isClosed" class="badge bg-success">Active</span>
+                <button *ngIf="!semester.isClosed" class="btn btn-warning btn-sm"
+                  (click)="closeSemester(semester.id)">Close</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="reactivate-semester mt-4">
+          <h3>Reactivate Closed Semesters</h3>
+          <form (ngSubmit)="reactivateSemester()">
+            <div class="mb-3">
+              <label for="closedSemester" class="form-label">Select Closed Semester:</label>
+              <select id="closedSemester" [(ngModel)]="selectedClosedSemesterId" name="closedSemester"
+                class="form-control">
+                <option *ngFor="let semester of closedSemesters" [value]="semester.id">{{ semester.name }}</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Reactivate Semester</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Semester Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showAddSemesterModalFlag"
+  [ngClass]="{'d-block': showAddSemesterModalFlag}" aria-labelledby="addSemesterModalLabel"
+  aria-hidden="!showAddSemesterModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSemesterModalLabel">Add New Semester</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAddSemesterModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addSemester()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" id="name" [(ngModel)]="newSemester.name" name="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date:</label>
+            <input type="date" id="startDate" [(ngModel)]="newSemester.startDate" name="startDate" class="form-control"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="endDate" class="form-label">End Date:</label>
+            <input type="date" id="endDate" [(ngModel)]="newSemester.endDate" name="endDate" class="form-control"
+              required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Semester</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Semester Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showDeleteSemesterModalFlag"
+  [ngClass]="{'d-block': showDeleteSemesterModalFlag}" aria-labelledby="deleteSemesterModalLabel"
+  aria-hidden="!showDeleteSemesterModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteSemesterModalLabel">Delete Semester</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteSemesterModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this semester?</p>
+        <div>
+          <select class="form-select" [(ngModel)]="selectedSemesterId">
+            <option *ngFor="let semester of semesters" [value]="semester.id">{{ semester.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteSemester()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteSemesterModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Transfer Student Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showTransferStudentModalFlag"
+  [ngClass]="{'d-block': showTransferStudentModalFlag}" aria-labelledby="transferStudentModalLabel"
+  aria-hidden="!showTransferStudentModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transferStudentModalLabel">Transfer Student</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeTransferStudentModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="classSelect">Select Class:</label>
+          <select id="classSelect" [(ngModel)]="selectedClassForStudents" class="form-control"
+            (change)="onClassSelect()">
+            <option [ngValue]="null">Select a class</option>
+            <option *ngFor="let class of availableClasses" [ngValue]="class.classId">{{ class.series }} - {{
+              class.number }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="studentSelect">Select Student:</label>
+          <select id="studentSelect" [(ngModel)]="selectedStudentForTransfer" class="form-control">
+            <option [ngValue]="null">Select a student</option>
+            <option *ngFor="let student of studentsInSelectedClass" [ngValue]="student.id">{{ student.firstName
+              }} {{ student.lastName }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newClassSelect">Select New Class:</label>
+          <select id="newClassSelect" [(ngModel)]="newClassForTransfer" class="form-control">
+            <option [ngValue]="null">Select a new class</option>
+            <option *ngFor="let class of availableClassesForTransfer" [ngValue]="class.classId">{{ class.series }} - {{
+              class.number }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="transferStudent()">Transfer</button>
+        <button type="button" class="btn btn-secondary" (click)="closeTransferStudentModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- View Students by Class Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showViewClassStudentsModalFlag"
+  [ngClass]="{'d-block': showViewClassStudentsModalFlag}" aria-labelledby="viewClassStudentsModalLabel"
+  aria-hidden="!showViewClassStudentsModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewClassStudentsModalLabel">Select Class:</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeViewClassStudentsModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="view-class-students-dropdown-container">
+          <select class="view-class-students-dropdown" id="classSelect" [(ngModel)]="selectedClassForStudents"
+            (change)="fetchStudentsByClass(selectedClassForStudents)">
+            <option [ngValue]="null">Select a class</option>
+            <option *ngFor="let class of availableClasses" [ngValue]="class.classId">{{ class.series }} - {{
+              class.number }}</option>
+          </select>
+        </div>
+        <div *ngIf="studentsInSelectedClass.length > 0">
+          <h3>Students in Class</h3>
+          <ul>
+            <li *ngFor="let student of studentsInSelectedClass">{{ student.firstName }} {{ student.lastName }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeViewClassStudentsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Subjects by Teacher Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showViewTeacherSubjectsModalFlag"
+  [ngClass]="{'d-block': showViewTeacherSubjectsModalFlag}" aria-labelledby="viewTeacherSubjectsModalLabel"
+  aria-hidden="!showViewTeacherSubjectsModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewTeacherSubjectsModalLabel">Select Teacher:</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeViewTeacherSubjectsModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="view-teacher-subjects-dropdown-container">
+          <select class="view-teacher-subjects-dropdown" id="teacherSelect" [(ngModel)]="selectedTeacherForSubjects"
+            (change)="fetchSubjectsByTeacher(selectedTeacherForSubjects)">
+            <option [ngValue]="null">Select a teacher</option>
+            <option *ngFor="let teacher of teachers" [ngValue]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName
+              }}</option>
+          </select>
+        </div>
+        <div *ngIf="subjectsOfSelectedTeacher.length > 0">
+          <h3>Subjects by Teacher</h3>
+          <ul>
+            <li *ngFor="let subject of subjectsOfSelectedTeacher">{{ subject.title }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeViewTeacherSubjectsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Student Modal -->
+<div class="modal admin-hub" tabindex="-1" [class.show]="showEditStudentModalFlag"
+  [ngClass]="{'d-block': showEditStudentModalFlag}" aria-labelledby="editStudentModalLabel"
+  aria-hidden="!showEditStudentModalFlag">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeEditStudentModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editStudent()" #editStudentForm="ngForm">
+          <div class="mb-3">
+            <label for="editFirstName" class="form-label">First Name:</label>
+            <input type="text" id="editFirstName" name="editFirstName" [(ngModel)]="selectedStudent.firstName"
+              class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="editLastName" class="form-label">Last Name:</label>
+            <input type="text" id="editLastName" name="editLastName" [(ngModel)]="selectedStudent.lastName"
+              class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="editGender" class="form-label">Gender:</label>
+            <select id="editGender" name="editGender" [(ngModel)]="selectedStudent.gender" class="form-control"
+              required>
+              <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editCNP" class="form-label">CNP:</label>
+            <input type="text" id="editCNP" name="editCNP" [(ngModel)]="selectedStudent.CNP" class="form-control"
+              required>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

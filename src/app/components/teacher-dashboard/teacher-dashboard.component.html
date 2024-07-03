@@ -1,0 +1,234 @@
+<div class="teacher-hub">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <title>TeacherHub</title>
+    </head>
+
+    <body class="teacher-hub">
+        <div class="navbar">
+            <h2>TeacherHub</h2>
+            <div class="navbar-buttons">
+                <button *ngIf="showButton" class="navbar-button" (click)="showAttendanceModal()">Mark
+                    Attendance</button>
+                <button *ngIf="showButton" class="navbar-button" (click)="showAbsenceModal()">View Absences</button>
+                <button class="logout-button" (click)="logout()">Logout</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="sidebar">
+                <h3>Clase și Discipline</h3>
+                <ul>
+                    <li *ngFor="let classDiscipline of classDisciplines"
+                        (click)="onClassDisciplineSelect(classDiscipline)">
+                        {{ classDiscipline.class.series }}{{ classDiscipline.class.number }} - {{
+                        classDiscipline.subject.title }}
+                    </li>
+                </ul>
+            </div>
+            <div class="main-content">
+                <div *ngIf="selectedClassDiscipline" class="list-container">
+                    <h2>{{currentSemester.name}}</h2>
+                    <div class="semester-info">
+                        <p>Start: {{ currentSemester.startDate | date }}</p>
+                        <p>End: {{ currentSemester.endDate | date }}</p>
+                    </div>
+                    <div class="list-header">
+                        <h3 class="section-title">Elevi din clasa {{ selectedClassDiscipline.class.series }}{{
+                            selectedClassDiscipline.class.number }} - {{ selectedClassDiscipline.subject.title }}</h3>
+                    </div>
+                    <ul class="students-list">
+                        <li *ngFor="let student of students" class="student-item">
+                            <div class="student-info">
+                                {{ student.firstName }} {{ student.lastName }}
+                            </div>
+                            <div class="icon-container">
+                                <button class="icon-button plus-icon" (click)="openModal(student)">
+                                    <i class='bx bx-plus'></i>
+                                </button>
+                                <button class="icon-button show-icon" (click)="showStudentGrades(student)">
+                                    <i class='bx bx-show'></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pentru adăugarea notelor -->
+        <div class="modal" [ngClass]="{'show d-block': showAddGradeModal}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>{{ selectedStudent.data?.firstName }} {{ selectedStudent.data?.lastName }}</h4>
+                        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form (ngSubmit)="addGradeOrAttendance()">
+                            <div class="mb-3">
+                                <label for="grade">Notă:</label>
+                                <input type="number" id="grade" name="grade" [(ngModel)]="newGrade.value"
+                                    class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date">Data:</label>
+                                <input type="date" id="date" name="date" [(ngModel)]="newGrade.date"
+                                    class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Adaugă</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pentru afișarea notelor elevului -->
+        <div class="modal" [ngClass]="{'show d-block': showStudentGradesModal}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Grades for {{ selectedStudent.data?.firstName }} {{ selectedStudent.data?.lastName }}</h4>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="closeStudentGradesModal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Verificăm dacă există note pentru semestrul selectat -->
+                        <ng-container *ngIf="selectedStudent.gradesBySemester">
+                            <ng-container *ngIf="selectedStudent.gradesBySemester.length > 0; else noGradesOverall">
+                                <!-- Afisăm notele pentru fiecare semestru -->
+                                <div *ngFor="let semesterGrades of selectedStudent.gradesBySemester">
+                                    <h5>{{ getSemesterNameById(semesterGrades.semesterId) }}</h5>
+                                    <ul *ngIf="semesterGrades.grades.length > 0; else noGradesForSemester">
+                                        <li *ngFor="let grade of semesterGrades.grades">
+                                            <strong>{{ grade.value }}</strong> - {{ grade.date | date:'MM/dd' }}
+                                            <button class="icon-button edit-icon" (click)="openEditGradeModal(grade)">
+                                                <i class='bx bx-edit'></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <ng-template #noGradesForSemester>
+                                        <p>No grades found for the selected semester.</p>
+                                    </ng-template>
+                                </div>
+                            </ng-container>
+                            <ng-template #noGradesOverall>
+                                <!-- Afisăm mesajul dacă nu există note -->
+                                <p>No grades found for the selected semester.</p>
+                            </ng-template>
+                        </ng-container>
+
+                        <!-- Afișăm un mesaj de încărcare dacă se încarcă notele -->
+                        <div *ngIf="!selectedStudent.gradesBySemester">
+                            <p>Loading...</p>
+                        </div>
+
+                        <!-- Afișăm media notelor dacă există note -->
+                        <div *ngIf="selectedStudent.gradesBySemester && selectedStudent.gradesBySemester.length > 0">
+                            <strong>Average Grade: </strong> {{ selectedStudent.averageGrade | number:'1.2-2' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal pentru editarea unei note -->
+        <div class="modal" [ngClass]="{'show d-block': showEditGradeModal}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Edit Grade for {{ selectedStudent.data?.firstName }} {{ selectedStudent.data?.lastName }}
+                        </h4>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="closeEditGradeModal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form (ngSubmit)="editGrade()">
+                            <div class="mb-3">
+                                <label for="editGradeValue">Notă:</label>
+                                <input type="number" id="editGradeValue" name="editGradeValue"
+                                    [(ngModel)]="selectedGrade.value" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editGradeDate">Data:</label>
+                                <input type="date" id="editGradeDate" name="editGradeDate"
+                                    [(ngModel)]="selectedGrade.date" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Salvează</button>
+                            <button type="button" class="btn btn-danger" (click)="deleteGrade()">Șterge</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal pentru marcare prezență -->
+        <div class="modal" [ngClass]="{'show d-block': showAttendanceList}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Mark Attendance</h4>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="closeAttendanceModal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="attendance-header">
+                            <label for="attendanceDate">Date:</label>
+                            <input type="date" id="attendanceDate" [(ngModel)]="attendanceDate" class="form-control"
+                                (change)="fetchAttendanceRecords()" required>
+                        </div>
+                        <ul class="attendance-list">
+                            <li *ngFor="let student of students" class="attendance-item">
+                                <span>{{ student.firstName }} {{ student.lastName }}</span>
+                                <input type="checkbox" [(ngModel)]="student.isPresent" class="form-check-input">
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary" (click)="saveAttendance()">Save Attendance</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Semester Absences  Modal  -->
+        <div class="modal" [ngClass]="{'show d-block': showAbsenceModalFlag}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>View Absences for {{ selectedClassDiscipline?.subject.title }}</h4>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="closeAbsenceModal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="student">Student:</label>
+                            <select id="student" name="student" [(ngModel)]="selectedStudentId" class="form-control"
+                                (change)="onStudentSelect()">
+                                <option *ngFor="let student of students" [value]="student.id">{{ student.firstName }} {{
+                                    student.lastName }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="semester">Semester:</label>
+                            <select id="semester" name="semester" [(ngModel)]="selectedSemesterId" class="form-control"
+                                [disabled]="!selectedStudentId" (change)="onSemesterSelect()">
+                                <option *ngFor="let semester of allSemesters" [value]="semester.id">{{ semester.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div *ngIf="absences.length > 0" class="absence-list">
+                            <h5>Absences:</h5>
+                            <ul>
+                                <li *ngFor="let absence of absences">{{ absence.date | date:'dd/MM/yyyy' }}</li>
+                            </ul>
+                        </div>
+                        <div *ngIf="absences.length === 0 && selectedStudentId && selectedSemesterId">
+                            <p>No absences found for the selected semester.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</div>

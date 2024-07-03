@@ -1,0 +1,62 @@
+<body class="student-hub">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="user-info">
+            <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
+        </div>
+        <a class="logout" (click)="logout()">Logout</a>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Subjects</h3>
+            <ul>
+                <li *ngFor="let subject of studentClass?.subjects" (click)="onSubjectSelect(subject)">
+                    {{ subject.title }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div *ngIf="selectedSubject" class="card">
+                <div class="card-header">
+                    <h4>Grades for {{ selectedSubject?.title }}</h4>
+                    <button class="attendance-button" (click)="openAttendanceModal()">Attendance</button>
+                </div>
+                <ng-container *ngFor="let semesterGrades of gradesBySemester">
+                    <h5>{{ getSemesterNameById(semesterGrades.semesterId) }}</h5>
+                    <ul class="grades-list">
+                        <li *ngFor="let grade of semesterGrades.grades">
+                            <strong>{{ grade.value }}</strong> - {{ grade.date | date:'MM/dd' }}
+                        </li>
+                        <div *ngIf="semesterGrades.grades.length === 0">
+                            <p>No grades found for the selected semester.</p>
+                        </div>
+                    </ul>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Attendance Modal -->
+    <div class="attendance-modal" [class.show]="showAttendanceModal">
+        <div class="modal-content">
+            <span class="close" (click)="closeAttendanceModal()">&times;</span>
+            <h2>Select Semester for Attendance</h2>
+            <div class="dropdown-container">
+                <select class="dropdown" [(ngModel)]="selectedSemesterId" (change)="fetchAbsences()">
+                    <option *ngFor="let semester of semesters" [value]="semester.id">{{ semester.name }}</option>
+                </select>
+            </div>
+            <ul class="attendance-list">
+                <li *ngFor="let record of filteredAttendance">{{ record.date | date:'MM/dd' }}</li>
+                <li *ngIf="noAbsencesMessage">{{ noAbsencesMessage }}</li>
+            </ul>
+        </div>
+    </div>
+
+
+</body>
